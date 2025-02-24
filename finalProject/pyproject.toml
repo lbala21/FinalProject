@@ -1,5 +1,5 @@
 [project]
-name = "assignment2"
+name = "finalProject"
 version = "0.1.0"
 description = ""
 authors = [
@@ -7,7 +7,6 @@ authors = [
     {name = "Irakli Shelia", email = "ishel21@freeuni.edu.ge"},
     {name = "Luka Pkhaladze", email = "lpkha21@freeuni.edu.ge"}
 ]
-readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"

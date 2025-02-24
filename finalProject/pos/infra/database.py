@@ -3,7 +3,7 @@ from typing import Any, List
 
 
 class Database:
-    def __init__(self, db_path: str ="pos.db") -> None:
+    def __init__(self, db_path: str = "pos.db") -> None:
         self.db_path = db_path
         self.connection = sqlite3.connect(self.db_path, check_same_thread=False)
         self.cursor = self.connection.cursor()
@@ -41,14 +41,14 @@ class Database:
         """)
         self.connection.commit()
 
-    def execute(self, query: str, params: tuple[()] =()) -> None:
+    def execute(self, query: str, params: tuple[()] = ()) -> None:
         self.cursor.execute(query, params)
         self.connection.commit()
 
-    def fetchall(self, query: str, params: tuple[()] =()) -> List[Any]:
+    def fetchall(self, query: str, params: tuple[()] = ()) -> List[Any]:
         self.cursor.execute(query, params)
         return self.cursor.fetchall()
 
-    def fetchone(self, query: str, params: tuple[()] =()) -> Any:
+    def fetchone(self, query: str, params: tuple[()] = ()) -> Any:
         self.cursor.execute(query, params)
         return self.cursor.fetchone()
