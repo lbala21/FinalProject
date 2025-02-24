@@ -1,73 +1,77 @@
-from typing import Optional, Protocol, TypeVar
+from typing import Any, List, Optional, Protocol
 
-ItemT = TypeVar("ItemT")
+from pos.core.models.campaigns import BuyNGetN, Combo, DiscountItem, DiscountPrice
+from pos.core.models.product import Product
+from pos.core.models.receipt import Receipt
+from pos.core.models.report import Report
+from pos.core.models.sales import Sales
 
 
-class CampaignRepository(Protocol[ItemT]):
-    def create(self, item: ItemT) -> ItemT:
+class CampaignRepository(Protocol):
+    def create_discount_item(self, campaign: DiscountItem) -> DiscountItem:
         pass
 
-    def read(self, item_id: int) -> Optional[ItemT]:
+    def create_discount_price(self, campaign: DiscountPrice) -> DiscountPrice:
         pass
 
-    def update(self, item: ItemT) -> None:
+    def create_buy_n_get_n(self, campaign: BuyNGetN) -> BuyNGetN:
         pass
 
-    def delete(self, item_id: int) -> None:
+    def create_combo(self, campaign: Combo) -> Combo:
         pass
 
-
-class ReportRepository(Protocol[ItemT]):
-    def create(self, item: ItemT) -> ItemT:
+    def list(self) -> List[Any]:
         pass
 
-    def read(self, item_id: int) -> Optional[ItemT]:
+    def delete(self, campaign_id: str) -> None:
         pass
 
-    def update(self, item: ItemT) -> None:
-        pass
-
-    def delete(self, item_id: int) -> None:
-        pass
-
-
-class ReceiptRepository(Protocol[ItemT]):
-    def create(self, item: ItemT) -> ItemT:
-        pass
-
-    def read(self, item_id: int) -> Optional[ItemT]:
-        pass
-
-    def update(self, item: ItemT) -> None:
-        pass
-
-    def delete(self, item_id: int) -> None:
+    def campaign_check(self, receipt: Receipt) -> None:
         pass
 
 
-class ProductRepository(Protocol[ItemT]):
-    def create(self, item: ItemT) -> ItemT:
-        pass
-
-    def read(self, item_id: int) -> Optional[ItemT]:
-        pass
-
-    def update(self, item: ItemT) -> None:
-        pass
-
-    def delete(self, item_id: int) -> None:
+class ReportRepository(Protocol):
+    def generate(self) -> Report:
         pass
 
 
-class SalesRepository(Protocol[ItemT]):
-    def create(self, item: ItemT) -> ItemT:
+class ReceiptRepository(Protocol):
+    def create(self, receipt: Receipt) -> Receipt:
         pass
 
-    def read(self, item_id: int) -> Optional[ItemT]:
+    def read(self, receipt_id: str) -> Optional[Receipt]:
         pass
 
-    def update(self, item: ItemT) -> None:
+    def update(self, receipt: Receipt) -> None:
         pass
 
-    def delete(self, item_id: int) -> None:
+    def delete(self, receipt_id: str) -> None:
+        pass
+
+
+class ProductRepository(Protocol):
+    def create(self, product: Product) -> Product:
+        pass
+
+    def read(self, product_id: str) -> Optional[Product]:
+        pass
+
+    def get_by_name(self, product_name: str) -> Optional[Product]:
+        pass
+
+    def get_by_barcode(self, product_barcode: str) -> Optional[Product]:
+        pass
+
+    def list(self) -> List[Any]:
+        pass
+
+    def update(self, product: Product) -> None:
+        pass
+
+    def delete(self, item_id: str) -> None:
+        pass
+
+
+class SalesRepository(Protocol):
+    def generate(self) -> Sales:
         pass

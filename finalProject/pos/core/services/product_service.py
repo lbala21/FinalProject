@@ -9,7 +9,7 @@ class ProductService:
         self.product_repo = product_repo
 
     def create_product(
-        self, product_id: str, name: str, barcode: str, price: float
+        self, product_id: str, name: str, barcode: str, price: int
     ) -> Product:
         if price < 0:
             raise ValueError("Price must be non-negative.")
@@ -35,7 +35,7 @@ class ProductService:
         """Get a list of all units."""
         return self.product_repo.list()
 
-    def update_product_price(self, product_id: str, price: float) -> None:
+    def update_product_price(self, product_id: str, price: int) -> None:
         if price < 0:
             raise ValueError("Price must be non-negative.")
         product = self.product_repo.read(product_id)

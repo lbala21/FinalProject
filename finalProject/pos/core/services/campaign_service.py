@@ -1,4 +1,4 @@
-from typing import List
+from typing import Any, List
 
 from pos.core.models.campaigns import BuyNGetN, Combo, DiscountItem, DiscountPrice
 from pos.core.models.repositories import CampaignRepository
@@ -29,5 +29,5 @@ class ReportService:
     def delete_discount_campaign(self, campaign_id: str) -> None:
         pass
 
-    def list_campaigns(self):
+    def list_campaigns(self) -> List[Any]:
         pass

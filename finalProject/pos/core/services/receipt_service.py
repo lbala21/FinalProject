@@ -1,4 +1,3 @@
-
 from pos.core.models.product import Product
 from pos.core.models.receipt import Receipt
 from pos.core.models.repositories import (
@@ -19,14 +18,14 @@ class ReceiptService:
         self.products_repo = products_repository
         self.campaign_repo = campaign_repository
 
-    def open_receipt(self, recept_id: str, shift_id: str) -> Receipt:
+    def create_receipt(self, recept_id: str, shift_id: str) -> Receipt:
         # Generate a new receipt ID using the repository
         receipt_id = recept_id
         receipt = Receipt(id=receipt_id, shift_id=shift_id)
         return self.receipt_repo.create(receipt)
 
     def add_product_to_receipt(
-        self, receipt_id: int, product_id: int, quantity: int
+        self, receipt_id: str, product_id: str, quantity: int
     ) -> None:
         if quantity < 1:
             raise ValueError("Quantity must be at least 1.")
@@ -40,30 +39,30 @@ class ReceiptService:
         if not product:
             raise ValueError("Product not found.")
 
-        self.add_product(receipt, product, quantity)
+        self.__add_product(receipt, product, quantity)
         self.receipt_repo.update(receipt)
 
-    def close_receipt(self, receipt_id: int) -> None:
+    def close_receipt(self, receipt_id: str) -> None:
         receipt = self.receipt_repo.read(receipt_id)
         if not receipt or not receipt.is_open:
             raise ValueError("Receipt is not valid or is already closed.")
         receipt.close()
         self.receipt_repo.update(receipt)
 
-    def get_receipt(self, receipt_id: int) -> Receipt:
+    def get_receipt(self, receipt_id: str) -> Receipt:
         receipt = self.receipt_repo.read(receipt_id)
         if not receipt:
             raise ValueError("Receipt not found.")
         return receipt
 
-    def get_receipt_total_price(self, receipt_id: int) -> float:
+    def get_receipt_total_price(self, receipt_id: str) -> float:
         """Get the total price of a receipt."""
         receipt = self.receipt_repo.read(receipt_id)
         if not receipt:
             raise ValueError("Receipt not found.")
         return receipt.total_price
 
-    def delete_receipt(self, receipt_id: int) -> None:
+    def delete_receipt(self, receipt_id: str) -> None:
         receipt = self.receipt_repo.read(receipt_id)
         if not receipt:
             raise ValueError("Receipt not found.")
@@ -76,4 +75,4 @@ class ReceiptService:
             recept.products[product.id] += quantity
         else:
             recept.products[product.id] = quantity
-        self.campaign_repo.campain_check(recept)
+        self.campaign_repo.campaign_check(recept)
