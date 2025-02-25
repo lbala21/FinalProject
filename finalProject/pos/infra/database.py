@@ -56,14 +56,14 @@ class Database:
         """)
         self.connection.commit()
 
-    def execute(self, query: str, params: tuple[()] = ()) -> None:
+    def execute(self, query: str, params: tuple[Any, ...] = ()) -> None:
         self.cursor.execute(query, params)
         self.connection.commit()
 
-    def fetchall(self, query: str, params: tuple[()] = ()) -> List[Any]:
+    def fetchall(self, query: str, params: tuple[Any, ...] = ()) -> List[Any]:
         self.cursor.execute(query, params)
         return self.cursor.fetchall()
 
-    def fetchone(self, query: str, params: tuple[()] = ()) -> Any:
+    def fetchone(self, query: str, params: tuple[Any, ...] = ()) -> Any:
         self.cursor.execute(query, params)
         return self.cursor.fetchone()
