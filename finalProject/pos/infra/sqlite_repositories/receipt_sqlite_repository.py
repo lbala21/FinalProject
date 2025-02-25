@@ -1,6 +1,6 @@
+import json
 from typing import Optional
 
-from pydantic import json
 
 from pos.core.models.receipt import Receipt
 from pos.core.models.repositories import ReceiptRepository
@@ -20,8 +20,8 @@ class ReceiptSQLiteRepository(ReceiptRepository):
                 receipt.id,
                 receipt.shift_id,
                 receipt.is_open,
-                receipt.products,
-                receipt.gift_products,
+                json.dumps(receipt.products),
+                json.dumps(receipt.gift_products),
                 receipt.discount_price,
                 receipt.total_price,
             ),
@@ -52,8 +52,8 @@ class ReceiptSQLiteRepository(ReceiptRepository):
             (
                 receipt.shift_id,
                 receipt.is_open,
-                receipt.products,
-                receipt.gift_products,
+                json.dumps(receipt.products),
+                json.dumps(receipt.gift_products),
                 receipt.total_price,
                 receipt.discount_price,
                 receipt.id,

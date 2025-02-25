@@ -18,6 +18,6 @@ class SalesSqliteRepository(SalesRepository):
         sales.n_receipts = len(rows)
 
         for row in rows:
-            sales.n_receipts += row[0]
+            sales.revenue += row[0]
 
         return sales

@@ -1,4 +1,4 @@
-from pydantic import json
+import json
 
 from pos.core.models.report import Report
 from pos.core.models.repositories import ReportRepository
