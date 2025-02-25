@@ -62,7 +62,7 @@ class ProductRepository(Protocol):
     def get_by_barcode(self, product_barcode: str) -> Optional[Product]:
         pass
 
-    def list(self) -> List[Any]:
+    def list(self) -> List[Product]:
         pass
 
     def update(self, product: Product) -> None:
