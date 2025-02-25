@@ -31,7 +31,7 @@ class CampaignRepository(Protocol):
 
 
 class ReportRepository(Protocol):
-    def generate(self) -> Report:
+    def generate(self, shift_id: str) -> Report:
         pass
 
 
