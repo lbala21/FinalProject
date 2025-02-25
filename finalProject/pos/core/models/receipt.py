@@ -8,6 +8,8 @@ class Receipt(BaseModel):
     shift_id: str
     is_open: bool = True
     products: Dict[str, int] = {}  # Maps product_id to quantity
+    gift_products: Dict[str, int] = {}
+    discount_price: int = 0
     total_price: int = 0
 
     def close(self) -> None:
