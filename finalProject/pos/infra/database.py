@@ -32,11 +32,17 @@ class Database:
             discount INTEGER NOT NULL,
         );
         
-        CREATE TABLE IF NOT EXISTS discount(
+        CREATE TABLE IF NOT EXISTS discount_items(
             id TEXT PRIMARY KEY,
             product_id TEXT NOT NULL,
             discount INTEGER NOT NULL,
             FOREIGN KEY(product_id) REFERENCES products(id),
+        );
+        
+        CREATE TABLE IF NOT EXISTS discount_price(
+            id TEXT PRIMARY KEY,
+            price INTEGER NOT NULL,
+            discount INTEGER NOT NULL,
         );
         
         CREATE TABLE IF NOT EXISTS receipts(
