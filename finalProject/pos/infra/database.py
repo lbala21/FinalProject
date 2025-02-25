@@ -23,7 +23,8 @@ class Database:
             product_amount INTEGER NOT NULL,
             gift_id TEXT NOT NULL,
             gift_amount INTEGER NOT NULL,
-            FOREIGN KEY(product_id, gift_id) REFERENCES products(id),
+            FOREIGN KEY(product_id) REFERENCES products(id),
+            FOREIGN KEY(gift_id) REFERENCES products(id)
         );
         
         CREATE TABLE IF NOT EXISTS combo(
