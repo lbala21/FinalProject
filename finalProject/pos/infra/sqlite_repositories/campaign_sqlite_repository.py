@@ -1,6 +1,6 @@
 from typing import Any, List
 
-from pydantic import json
+import json
 
 from pos.core.models.campaigns import BuyNGetN, Combo, DiscountItem, DiscountPrice
 from pos.core.models.receipt import Receipt
@@ -44,13 +44,13 @@ class CampaignSQLiteRepository(CampaignRepository):
     def create_combo(self, campaign: Combo) -> Combo:
         self.db.execute(
             "INSERT INTO combo (id, products_id, discount) VALUES (?, ?, ?)",
-            (campaign.id, campaign.products, campaign.discount),
+            (campaign.id, ",".join(campaign.products), campaign.discount),
         )
         return campaign
 
     def delete(self, campaign_id: str) -> None:
         self.db.execute("DELETE FROM discount_items WHERE id = ?", (campaign_id,))
-        self.db.execute("DELETE FROM discount_price WHERE id = ?", (campaign_id,))
+        self.db.execute("DELETE FROM discount_prices WHERE id = ?", (campaign_id,))
         self.db.execute("DELETE FROM buyNgetN WHERE id = ?", (campaign_id,))
         self.db.execute("DELETE FROM combo WHERE id = ?", (campaign_id,))
 
@@ -67,7 +67,7 @@ class CampaignSQLiteRepository(CampaignRepository):
                     )
                 )
 
-        discount_prices = self.db.fetchall("SELECT * FROM discount_price")
+        discount_prices = self.db.fetchall("SELECT * FROM discount_prices")
 
         if discount_prices:
             for campaign in discount_prices:
@@ -96,7 +96,7 @@ class CampaignSQLiteRepository(CampaignRepository):
         if combos:
             for campaign in combos:
                 campaigns.append(
-                    Combo(id=campaign[0], products=campaign[1], discount=campaign[2])
+                    Combo(id=campaign[0], products=campaign[1].split(","), discount=campaign[2])
                 )
 
         return campaigns
@@ -109,7 +109,7 @@ class CampaignSQLiteRepository(CampaignRepository):
         self.__check_buy_n_get_n(receipt)
 
     def __check_discount_price(self, receipt: Receipt) -> None:
-        rows = self.db.fetchall("SELECT price, discount FROM discount_price")
+        rows = self.db.fetchall("SELECT price, discount FROM discount_prices")
 
         if rows:
             final_discount = 0
