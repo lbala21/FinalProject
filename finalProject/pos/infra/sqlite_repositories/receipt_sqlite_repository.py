@@ -14,12 +14,15 @@ class ReceiptSQLiteRepository(ReceiptRepository):
     def create(self, receipt: Receipt) -> Receipt:
         self.db.execute(
             "INSERT INTO receipts (receipt, shift_id, is_open, "
-            "products, total_price) VALUES (?,?,?,?,?)",
+            "products, gift_product, discount_price, total_price)"
+            " VALUES (?,?,?,?,?,?,?)",
             (
                 receipt.id,
                 receipt.shift_id,
                 receipt.is_open,
                 receipt.products,
+                receipt.gift_product,
+                receipt.discount_price,
                 receipt.total_price,
             ),
         )
@@ -36,18 +39,23 @@ class ReceiptSQLiteRepository(ReceiptRepository):
             shift_id=row[1],
             is_open=row[2],
             products=json.loads(row[3]),
-            total_price=row[4],
+            gift_products=json.loads(row[4]),
+            discount_price=row[5],
+            total_price=row[6],
         )
 
     def update(self, receipt: Receipt) -> None:
         self.db.execute(
             "UPDATE receipts SET shift_id = ?, is_open = ?, "
-            "products = ?, total_price = ? WHERE receipt_id = ?",
+            "products = ?, gift_products = ?, "
+            "total_price = ?, discount_price = ? WHERE receipt_id = ?",
             (
                 receipt.shift_id,
                 receipt.is_open,
                 receipt.products,
+                receipt.gift_products,
                 receipt.total_price,
+                receipt.discount_price,
                 receipt.id,
             ),
         )
