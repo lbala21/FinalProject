@@ -13,7 +13,7 @@ class ReceiptSQLiteRepository(ReceiptRepository):
 
     def create(self, receipt: Receipt) -> Receipt:
         self.db.execute(
-            "INSERT INTO receipts (receipt, shift_id, is_open, "
+            "INSERT INTO receipts (id, shift_id, is_open, "
             "products, gift_products, discount_price, total_price)"
             " VALUES (?,?,?,?,?,?,?)",
             (
@@ -30,7 +30,7 @@ class ReceiptSQLiteRepository(ReceiptRepository):
 
     def read(self, receipt_id: str) -> Optional[Receipt]:
         row = self.db.fetchone(
-            "SELECT * FROM receipts WHERE receipt_id=?", (receipt_id,)
+            "SELECT * FROM receipts WHERE id=?", (receipt_id,)
         )
         if row is None:
             return None
@@ -48,7 +48,7 @@ class ReceiptSQLiteRepository(ReceiptRepository):
         self.db.execute(
             "UPDATE receipts SET shift_id = ?, is_open = ?, "
             "products = ?, gift_products = ?, "
-            "total_price = ?, discount_price = ? WHERE receipt_id = ?",
+            "total_price = ?, discount_price = ? WHERE id = ?",
             (
                 receipt.shift_id,
                 receipt.is_open,
@@ -61,4 +61,4 @@ class ReceiptSQLiteRepository(ReceiptRepository):
         )
 
     def delete(self, receipt_id: str) -> None:
-        self.db.execute("DELETE FROM receipts WHERE receipt_id=?", (receipt_id,))
+        self.db.execute("DELETE FROM receipts WHERE id=?", (receipt_id,))

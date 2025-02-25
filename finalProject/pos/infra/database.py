@@ -14,6 +14,7 @@ class Database:
         CREATE TABLE IF NOT EXISTS products (
             id TEXT PRIMARY KEY,
             name TEXT NOT NULL,
+            barcode TEXT NOT NULL,
             price REAL NOT NULL
         );
         
@@ -30,20 +31,20 @@ class Database:
         CREATE TABLE IF NOT EXISTS combo(
             id TEXT PRIMARY KEY,
             products_id TEXT NOT NULL, 
-            discount INTEGER NOT NULL,
+            discount INTEGER NOT NULL
         );
         
         CREATE TABLE IF NOT EXISTS discount_items(
             id TEXT PRIMARY KEY,
             product_id TEXT NOT NULL,
             discount INTEGER NOT NULL,
-            FOREIGN KEY(product_id) REFERENCES products(id),
+            FOREIGN KEY(product_id) REFERENCES products(id)
         );
         
         CREATE TABLE IF NOT EXISTS discount_price(
             id TEXT PRIMARY KEY,
             price INTEGER NOT NULL,
-            discount INTEGER NOT NULL,
+            discount INTEGER NOT NULL
         );
         
         CREATE TABLE IF NOT EXISTS receipts(
@@ -54,13 +55,13 @@ class Database:
             gift_products TEXT,
             discount_price INTEGER NOT NULL,
             total_price INTEGER NOT NULL,
-            FOREIGN KEY(shift_id) REFERENCES shifts(id),
+            FOREIGN KEY(shift_id) REFERENCES shifts(id)
         );
         
         CREATE TABLE IF NOT EXISTS shifts(
             id TEXT PRIMARY KEY,
             name TEXT NOT NULL,
-            FOREIGN KEY(id) REFERENCES receipts(shift_id),
+            FOREIGN KEY(id) REFERENCES receipts(shift_id)
         )
         """)
         self.connection.commit()
