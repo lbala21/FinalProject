@@ -14,14 +14,14 @@ class ReceiptSQLiteRepository(ReceiptRepository):
     def create(self, receipt: Receipt) -> Receipt:
         self.db.execute(
             "INSERT INTO receipts (receipt, shift_id, is_open, "
-            "products, gift_product, discount_price, total_price)"
+            "products, gift_products, discount_price, total_price)"
             " VALUES (?,?,?,?,?,?,?)",
             (
                 receipt.id,
                 receipt.shift_id,
                 receipt.is_open,
                 receipt.products,
-                receipt.gift_product,
+                receipt.gift_products,
                 receipt.discount_price,
                 receipt.total_price,
             ),
