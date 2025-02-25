@@ -50,6 +50,8 @@ class Database:
             shift_id TEXT NOT NULL,
             is_open BOOLEAN,
             products TEXT,
+            gift_products TEXT,
+            discount_price INTEGER NOT NULL,
             total_price INTEGER NOT NULL,
             FOREIGN KEY(shift_id) REFERENCES shifts(id),
         );
