@@ -41,7 +41,7 @@ class Database:
             FOREIGN KEY(product_id) REFERENCES products(id)
         );
         
-        CREATE TABLE IF NOT EXISTS discount_price(
+        CREATE TABLE IF NOT EXISTS discount_prices(
             id TEXT PRIMARY KEY,
             price INTEGER NOT NULL,
             discount INTEGER NOT NULL
