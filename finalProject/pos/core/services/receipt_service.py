@@ -70,9 +70,11 @@ class ReceiptService:
             raise ValueError("Receipt is not open")
         self.receipt_repo.delete(receipt_id)
 
-    def __add_product(self, recept: Receipt, product: Product, quantity: int) -> None:
-        if product.id in recept.products:
-            recept.products[product.id] += quantity
+    def __add_product(self, receipt: Receipt, product: Product, quantity: int) -> None:
+        if product.id in receipt.products:
+            receipt.products[product.id] += quantity
         else:
-            recept.products[product.id] = quantity
-        self.campaign_repo.campaign_check(recept)
+            receipt.products[product.id] = quantity
+
+        receipt.total_price += quantity * product.price
+        self.campaign_repo.campaign_check(receipt)
