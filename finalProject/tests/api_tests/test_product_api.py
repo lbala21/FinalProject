@@ -1,16 +1,12 @@
-import os
-import sqlite3
 import uuid
-from typing import Generator
 
 import pytest
 from fastapi.testclient import TestClient
 
 from pos.infra.database import Database
 from pos.runner.__main__ import app  # FastAPI app
-from pos.runner.setup import (
-    setup,  # Adjust the import based on your actual structure
-)
+
+
 
 db = Database()
 
@@ -18,13 +14,13 @@ db = Database()
 client = TestClient(app)
 
 
-def tearDown() -> None:
-    db.execute("DROP TABLE IF EXISTS products")
-    setup()
+def reset_db() -> None:
+    db.execute("DELETE FROM products;")
+
 
 
 def test_create_product():
-    tearDown()
+    reset_db()
     # Unique product data for each test run
     barcode:str = str(uuid.uuid4().int)[:10]
     product_data = {
@@ -44,7 +40,7 @@ def test_create_product():
 
 
 def test_create_product_duplicate_barcode():
-    tearDown()
+    reset_db()
 
     # Create a product first
     product_data = {
@@ -63,7 +59,7 @@ def test_create_product_duplicate_barcode():
 
 
 def test_read_product_endpoint_existing():
-    tearDown()
+    reset_db()
 
     # First, create a product to test the read operation
     product_data = {
@@ -86,7 +82,7 @@ def test_read_product_endpoint_existing():
 
 
 def test_read_product_endpoint_not_found():
-    tearDown()
+    reset_db()
 
     # Test the read endpoint with a non-existing product ID
     response = client.get("/products/non_existing_id")
@@ -94,7 +90,7 @@ def test_read_product_endpoint_not_found():
     assert response.status_code == 404
 
 def test_list_products_endpoint():
-    tearDown()
+    reset_db()
 
     # Create a couple of products to test the list endpoint
     product_data_1 = {
@@ -125,7 +121,7 @@ def test_list_products_endpoint():
 
 
 def test_update_product_success():
-    tearDown()
+    reset_db()
 
     # Create a product first
     product_data = {
