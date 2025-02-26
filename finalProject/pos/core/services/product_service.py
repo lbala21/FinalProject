@@ -9,7 +9,7 @@ class ProductService:
         self.product_repo = product_repo
 
     def create_product(
-        self, product_id: str, name: str, barcode: str, price: int
+        self, product_id: str, name: str, barcode: str, price: float
     ) -> Product:
         if price < 0:
             raise ValueError("Price must be non-negative.")
