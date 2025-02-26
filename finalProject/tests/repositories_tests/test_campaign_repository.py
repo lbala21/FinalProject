@@ -38,7 +38,7 @@ class TestReportRepository(unittest.TestCase):
         self.assertEqual(created_campaign.gift_amount, 1)
 
     def test_create_combo(self) -> None:
-        campaign = Combo(id="1", products={"A1", "B1"}, discount=20)
+        campaign = Combo(id="1", products=["A1", "B1"], discount=20)
         created_campaign = self.repo.create_combo(campaign)
         self.assertEqual(created_campaign.id, "1")
         self.assertEqual(created_campaign.products, '["A1", "B1"]')
@@ -63,7 +63,7 @@ class TestReportRepository(unittest.TestCase):
 
         campaign = DiscountItem(id="1", product_id="A1", discount=10)
         self.repo.create_discount_item(campaign)
-        campaign = Combo(id="2", products={"A1", "B1"}, discount=20)
+        campaign = Combo(id="2", products=["A1", "B1"], discount=20)
         self.repo.create_combo(campaign)
         self.repo.delete("2")
         campaigns = self.repo.list()
