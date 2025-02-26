@@ -5,4 +5,4 @@ class Product(BaseModel):
     id: str
     name: str
     barcode: str
-    price: int
+    price: float
