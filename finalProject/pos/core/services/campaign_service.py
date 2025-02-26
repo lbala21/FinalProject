@@ -4,7 +4,7 @@ from pos.core.models.campaigns import BuyNGetN, Combo, DiscountItem, DiscountPri
 from pos.core.models.repositories import CampaignRepository
 
 
-class ReportService:
+class CampaignService:
     def __init__(self, campaign_repository: CampaignRepository):
         self.campaign_repository = campaign_repository
 
