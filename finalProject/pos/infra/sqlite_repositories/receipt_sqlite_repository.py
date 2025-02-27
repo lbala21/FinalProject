@@ -1,7 +1,6 @@
 import json
 from typing import Optional
 
-
 from pos.core.models.receipt import Receipt
 from pos.core.models.repositories import ReceiptRepository
 from pos.infra.database import Database
@@ -29,9 +28,7 @@ class ReceiptSQLiteRepository(ReceiptRepository):
         return receipt
 
     def read(self, receipt_id: str) -> Optional[Receipt]:
-        row = self.db.fetchone(
-            "SELECT * FROM receipts WHERE id=?", (receipt_id,)
-        )
+        row = self.db.fetchone("SELECT * FROM receipts WHERE id=?", (receipt_id,))
         if row is None:
             return None
         return Receipt(

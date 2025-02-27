@@ -1,6 +1,5 @@
-from typing import Any, List
-
 import json
+from typing import Any, List
 
 from pos.core.models.campaigns import BuyNGetN, Combo, DiscountItem, DiscountPrice
 from pos.core.models.receipt import Receipt
@@ -96,7 +95,11 @@ class CampaignSQLiteRepository(CampaignRepository):
         if combos:
             for campaign in combos:
                 campaigns.append(
-                    Combo(id=campaign[0], products=campaign[1].split(","), discount=campaign[2])
+                    Combo(
+                        id=campaign[0],
+                        products=campaign[1].split(","),
+                        discount=campaign[2],
+                    )
                 )
 
         return campaigns
@@ -148,7 +151,8 @@ class CampaignSQLiteRepository(CampaignRepository):
         products = receipt.products
         for product_id, quantity in products.items():
             row = self.db.fetchone(
-                "SELECT discount FROM discount_items WHERE product_id = ?", (product_id,)
+                "SELECT discount FROM discount_items WHERE product_id = ?",
+                (product_id,),
             )
             if row:
                 total_discount = quantity * row[0]
