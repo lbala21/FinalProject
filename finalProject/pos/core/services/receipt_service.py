@@ -18,9 +18,8 @@ class ReceiptService:
         self.products_repo = products_repository
         self.campaign_repo = campaign_repository
 
-    def create_receipt(self, recept_id: str, shift_id: str) -> Receipt:
+    def create_receipt(self, receipt_id: str, shift_id: str) -> Receipt:
         # Generate a new receipt ID using the repository
-        receipt_id = recept_id
         receipt = Receipt(id=receipt_id, shift_id=shift_id)
         return self.receipt_repo.create(receipt)
 
