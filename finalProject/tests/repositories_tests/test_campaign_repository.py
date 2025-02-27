@@ -12,7 +12,10 @@ class TestReportRepository(unittest.TestCase):
         self.repo = CampaignSQLiteRepository(self.db)
 
     def tearDown(self) -> None:
-        self.db.execute("DROP TABLE IF EXISTS receipts")
+        self.db.execute("DROP TABLE IF EXISTS discount_items")
+        self.db.execute("DROP TABLE IF EXISTS discount_prices")
+        self.db.execute("DROP TABLE IF EXISTS combo")
+        self.db.execute("DROP TABLE IF EXISTS buyNgetN")
 
     def test_create_discount_item(self) -> None:
         campaign = DiscountItem(id="1", product_id="A1", discount=10)
@@ -41,7 +44,7 @@ class TestReportRepository(unittest.TestCase):
         campaign = Combo(id="1", products=["A1", "B1"], discount=20)
         created_campaign = self.repo.create_combo(campaign)
         self.assertEqual(created_campaign.id, "1")
-        self.assertEqual(created_campaign.products, '["A1", "B1"]')
+        self.assertEqual(created_campaign.products, ["A1", "B1"])
         self.assertEqual(created_campaign.discount, 20)
 
     def test_list_campaigns(self) -> None:
