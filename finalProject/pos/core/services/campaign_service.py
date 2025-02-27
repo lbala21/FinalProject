@@ -11,7 +11,9 @@ class CampaignService:
     def create_discount_item_campaign(
         self, campaign_id: str, product_id: str, discount: int
     ) -> DiscountItem:
-        campaign = DiscountItem(id=campaign_id, product_id=product_id, discount=discount)
+        campaign = DiscountItem(
+            id=campaign_id, product_id=product_id, discount=discount
+        )
         return self.campaign_repository.create_discount_item(campaign)
 
     def create_discount_price_campaign(
@@ -21,12 +23,25 @@ class CampaignService:
         return self.campaign_repository.create_discount_price(campaign)
 
     def create_buy_n_get_n_campaign(
-        self, campaign_id: str, product_id: str, product_amount: int, gift_id: str, gift_amount: int
+        self,
+        campaign_id: str,
+        product_id: str,
+        product_amount: int,
+        gift_id: str,
+        gift_amount: int,
     ) -> BuyNGetN:
-        campaign = BuyNGetN(id=campaign_id, product_id=product_id, product_amount=product_amount, gift_id=gift_id, gift_amount=gift_amount)
+        campaign = BuyNGetN(
+            id=campaign_id,
+            product_id=product_id,
+            product_amount=product_amount,
+            gift_id=gift_id,
+            gift_amount=gift_amount,
+        )
         return self.campaign_repository.create_buy_n_get_n(campaign)
 
-    def create_combo_campaign(self, campaign_id: str, products: List[str], discount: int) -> Combo:
+    def create_combo_campaign(
+        self, campaign_id: str, products: List[str], discount: int
+    ) -> Combo:
         campaign = Combo(id=campaign_id, products=products, discount=discount)
         return self.campaign_repository.create_combo(campaign)
 

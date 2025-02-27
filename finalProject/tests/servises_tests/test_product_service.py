@@ -1,10 +1,10 @@
-import sqlite3
 import unittest
-from itertools import product
 
 from pos.core.services.product_service import ProductService
 from pos.infra.database import Database
-from pos.infra.sqlite_repositories.product_sqlite_repository import ProductSQLiteRepository
+from pos.infra.sqlite_repositories.product_sqlite_repository import (
+    ProductSQLiteRepository,
+)
 
 
 class TestProductService(unittest.TestCase):
@@ -19,10 +19,7 @@ class TestProductService(unittest.TestCase):
     def test_create_product(self) -> None:
         # Test creating a new product
         product = self.product_service.create_product(
-            product_id="1",
-            name="Apple",
-            barcode="1234567890",
-            price=5.0
+            product_id="1", name="Apple", barcode="1234567890", price=5.0
         )
         self.assertEqual(product.id, "1")
         self.assertEqual(product.name, "Apple")
@@ -32,19 +29,13 @@ class TestProductService(unittest.TestCase):
         # Test creating a product with a duplicate barcode
         with self.assertRaises(ValueError):
             self.product_service.create_product(
-                product_id="2",
-                name="Banana",
-                barcode="1234567890",
-                price=3.0
+                product_id="2", name="Banana", barcode="1234567890", price=3.0
             )
 
     def test_get_product(self) -> None:
         # Create a product
         self.product_service.create_product(
-            product_id="1",
-            name="Apple",
-            barcode="1234567890",
-            price=5.0
+            product_id="1", name="Apple", barcode="1234567890", price=5.0
         )
 
         # Test getting an existing product
@@ -62,10 +53,7 @@ class TestProductService(unittest.TestCase):
     def test_update_product_price(self) -> None:
         # Create a product
         self.product_service.create_product(
-            product_id="1",
-            name="Apple",
-            barcode="1234567890",
-            price=5.0
+            product_id="1", name="Apple", barcode="1234567890", price=5.0
         )
 
         # Test updating the product price
@@ -81,10 +69,7 @@ class TestProductService(unittest.TestCase):
     def test_delete_product(self) -> None:
         # Create a product
         self.product_service.create_product(
-            product_id="1",
-            name="Apple",
-            barcode="1234567890",
-            price=5.0
+            product_id="1", name="Apple", barcode="1234567890", price=5.0
         )
 
         # Test deleting an existing product
