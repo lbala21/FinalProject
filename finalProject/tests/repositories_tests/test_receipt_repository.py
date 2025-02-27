@@ -3,8 +3,12 @@ import unittest
 from pos.core.models.product import Product
 from pos.core.models.receipt import Receipt
 from pos.infra.database import Database
-from pos.infra.sqlite_repositories.product_sqlite_repository import ProductSQLiteRepository
-from pos.infra.sqlite_repositories.receipt_sqlite_repository import ReceiptSQLiteRepository
+from pos.infra.sqlite_repositories.product_sqlite_repository import (
+    ProductSQLiteRepository,
+)
+from pos.infra.sqlite_repositories.receipt_sqlite_repository import (
+    ReceiptSQLiteRepository,
+)
 
 
 class TestReceiptRepository(unittest.TestCase):

@@ -1,9 +1,11 @@
 import unittest
 
-from pos.core.models.campaigns import DiscountItem, DiscountPrice, Combo, BuyNGetN
+from pos.core.models.campaigns import BuyNGetN, Combo, DiscountItem, DiscountPrice
 from pos.core.models.receipt import Receipt
 from pos.infra.database import Database
-from pos.infra.sqlite_repositories.campaign_sqlite_repository import CampaignSQLiteRepository
+from pos.infra.sqlite_repositories.campaign_sqlite_repository import (
+    CampaignSQLiteRepository,
+)
 
 
 class TestReportRepository(unittest.TestCase):
@@ -32,7 +34,9 @@ class TestReportRepository(unittest.TestCase):
         self.assertEqual(created_campaign.discount, 15)
 
     def test_create_buy_n_get_n(self) -> None:
-        campaign = BuyNGetN(id="1", product_id="A1", product_amount=2, gift_id="B1", gift_amount=1)
+        campaign = BuyNGetN(
+            id="1", product_id="A1", product_amount=2, gift_id="B1", gift_amount=1
+        )
         created_campaign = self.repo.create_buy_n_get_n(campaign)
         self.assertEqual(created_campaign.id, "1")
         self.assertEqual(created_campaign.product_id, "A1")
@@ -50,7 +54,9 @@ class TestReportRepository(unittest.TestCase):
     def test_list_campaigns(self) -> None:
         campaign1 = DiscountItem(id="1", product_id="A1", discount=10)
         campaign2 = DiscountPrice(id="2", price=100, discount=15)
-        campaign3 = BuyNGetN(id="3", product_id="A1", product_amount=2, gift_id="B1", gift_amount=1)
+        campaign3 = BuyNGetN(
+            id="3", product_id="A1", product_amount=2, gift_id="B1", gift_amount=1
+        )
         self.repo.create_discount_item(campaign1)
         self.repo.create_discount_price(campaign2)
         self.repo.create_buy_n_get_n(campaign3)

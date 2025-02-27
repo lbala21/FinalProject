@@ -1,7 +1,11 @@
 import unittest
-from pos.infra.sqlite_repositories.product_sqlite_repository import ProductSQLiteRepository
+
 from pos.core.models.product import Product
 from pos.infra.database import Database
+from pos.infra.sqlite_repositories.product_sqlite_repository import (
+    ProductSQLiteRepository,
+)
+
 
 class TestProductRepository(unittest.TestCase):
     def setUp(self) -> None:

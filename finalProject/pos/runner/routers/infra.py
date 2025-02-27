@@ -1,10 +1,15 @@
 from typing import Protocol
 
-from pos.core.models.repositories import (CampaignRepository, ReportRepository, ReceiptRepository, ProductRepository, SalesRepository)
+from pos.core.models.repositories import (
+    CampaignRepository,
+    ProductRepository,
+    ReceiptRepository,
+    ReportRepository,
+    SalesRepository,
+)
 
 
 class _Infra(Protocol):
-
     def product_repo(self) -> ProductRepository:
         pass
 
@@ -12,11 +17,10 @@ class _Infra(Protocol):
         pass
 
     def sales_repo(self) -> SalesRepository:
-       pass
+        pass
 
     def campaign_repo(self) -> CampaignRepository:
         pass
 
     def report_repo(self) -> ReportRepository:
         pass
-

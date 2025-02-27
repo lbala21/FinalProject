@@ -1,7 +1,10 @@
 import unittest
+
 from pos.core.models.receipt import Receipt
 from pos.infra.database import Database
-from pos.infra.sqlite_repositories.receipt_sqlite_repository import ReceiptSQLiteRepository
+from pos.infra.sqlite_repositories.receipt_sqlite_repository import (
+    ReceiptSQLiteRepository,
+)
 from pos.infra.sqlite_repositories.sales_sqlite_repository import SalesSqliteRepository
 
 

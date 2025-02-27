@@ -11,7 +11,7 @@ class ProductSQLiteRepository(ProductRepository):
 
     def create(self, product: Product) -> Product:
         self.db.execute(
-            "INSERT INTO products (id, name, barcode, price) " "VALUES (?,?,?,?)",
+            "INSERT INTO products (id, name, barcode, price) VALUES (?,?,?,?)",
             (product.id, product.name, product.barcode, product.price),
         )
         return product

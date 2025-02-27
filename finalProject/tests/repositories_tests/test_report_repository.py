@@ -1,11 +1,13 @@
 import unittest
-import json
 
 from pos.core.models.receipt import Receipt
-from pos.core.models.report import Report
 from pos.infra.database import Database
-from pos.infra.sqlite_repositories.receipt_sqlite_repository import ReceiptSQLiteRepository
-from pos.infra.sqlite_repositories.report_sqlite_repository import ReportSQLiteRepository
+from pos.infra.sqlite_repositories.receipt_sqlite_repository import (
+    ReceiptSQLiteRepository,
+)
+from pos.infra.sqlite_repositories.report_sqlite_repository import (
+    ReportSQLiteRepository,
+)
 
 
 class TestReportRepository(unittest.TestCase):
@@ -52,7 +54,7 @@ class TestReportRepository(unittest.TestCase):
 
         # Generate report
         report = self.report_repo.generate("1")
-        self.assertEqual(report.n_receipts, 1) # Only closed receipts are counted
+        self.assertEqual(report.n_receipts, 1)  # Only closed receipts are counted
         self.assertEqual(report.products, {"48": 3})
         self.assertEqual(report.revenue, 12)  # Only closed receipts are included
 

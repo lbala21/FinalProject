@@ -14,7 +14,6 @@ class ProductService:
         if price < 0:
             raise ValueError("Price must be non-negative.")
 
-
         # Check if a product with the same barcode already exists
         existing_product_by_barcode = self.product_repo.get_by_barcode(barcode)
         if existing_product_by_barcode:
