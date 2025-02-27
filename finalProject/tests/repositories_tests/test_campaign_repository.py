@@ -64,16 +64,16 @@ class TestReportRepository(unittest.TestCase):
         self.assertEqual(len(campaigns), 3)
 
     def test_delete_campaign(self) -> None:
-        campaign = DiscountItem(id="1", product_id="A1", discount=10)
-        self.repo.create_discount_item(campaign)
+        campaign_disc: DiscountItem = DiscountItem(id="1", product_id="A1", discount=10)
+        self.repo.create_discount_item(campaign_disc)
         self.repo.delete("1")
         campaigns = self.repo.list()
         self.assertEqual(len(campaigns), 0)
 
-        campaign = DiscountItem(id="1", product_id="A1", discount=10)
-        self.repo.create_discount_item(campaign)
-        campaign = Combo(id="2", products=["A1", "B1"], discount=20)
-        self.repo.create_combo(campaign)
+        campaign_disc = DiscountItem(id="1", product_id="A1", discount=10)
+        self.repo.create_discount_item(campaign_disc)
+        campaign_combo: Combo = Combo(id="2", products=["A1", "B1"], discount=20)
+        self.repo.create_combo(campaign_combo)
         self.repo.delete("2")
         campaigns = self.repo.list()
         self.assertEqual(len(campaigns), 1)
