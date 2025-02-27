@@ -121,13 +121,10 @@ class CampaignSQLiteRepository(CampaignRepository):
             receipt.discount_price -= final_discount
 
     def __check_combo(self, receipt: Receipt) -> None:
-        row = self.db.fetchone(
-            "SELECT products FROM receipts WHERE id = ?", (receipt.id,)
-        )
-        products = json.loads(row[0])
+        products = receipt.products
         product_ids = list(products.keys())
 
-        rows = self.db.fetchall("SELECT products, discount FROM combo")
+        rows = self.db.fetchall("SELECT products_id, discount FROM combo")
         if rows:
             for row in rows:
                 combo_products = json.loads(row[0])
@@ -135,10 +132,7 @@ class CampaignSQLiteRepository(CampaignRepository):
                     receipt.discount_price -= row[1]
 
     def __check_buy_n_get_n(self, receipt: Receipt) -> None:
-        row = self.db.fetchone(
-            "SELECT products FROM receipts WHERE id = ?", (receipt.id,)
-        )
-        products = json.loads(row[0])
+        products = receipt.products
         for product_id, quantity in products.items():
             rows = self.db.fetchall(
                 "SELECT product_amount, gift_id, gift_amount "
@@ -151,13 +145,10 @@ class CampaignSQLiteRepository(CampaignRepository):
                         receipt.gift_products[row[1]] = row[2]
 
     def __check_discount_item(self, receipt: Receipt) -> None:
-        row = self.db.fetchone(
-            "SELECT products FROM receipts WHERE id = ?", (receipt.id,)
-        )
-        products = json.loads(row[0])
+        products = receipt.products
         for product_id, quantity in products.items():
             row = self.db.fetchone(
-                "SELECT discount FROM  WHERE product_id = ?", (product_id,)
+                "SELECT discount FROM discount_items WHERE product_id = ?", (product_id,)
             )
             if row:
                 total_discount = quantity * row[0]
