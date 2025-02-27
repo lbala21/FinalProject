@@ -9,8 +9,8 @@ class Receipt(BaseModel):
     is_open: bool = True
     products: Dict[str, int] = {}  # Maps product_id to quantity
     gift_products: Dict[str, int] = {}
-    discount_price: int = 0
-    total_price: int = 0
+    discount_price: float = 0
+    total_price: float = 0
 
     def close(self) -> None:
         self.is_open = False
