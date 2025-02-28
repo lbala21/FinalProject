@@ -7,7 +7,7 @@ class ShiftService:
         self.shift_repo = shift_repo
 
     def create_shift(self, shift_id: str, cashier: str) -> Shift:
-        shift = Shift(shift_id=shift_id, cashier=cashier)
+        shift = Shift(id=shift_id, cashier=cashier)
         return self.shift_repo.create(shift)
 
     def get_shift(self, shift_id: str) -> Shift:
