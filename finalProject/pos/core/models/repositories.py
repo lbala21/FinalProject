@@ -5,6 +5,7 @@ from pos.core.models.product import Product
 from pos.core.models.receipt import Receipt
 from pos.core.models.report import Report
 from pos.core.models.sales import Sales
+from pos.core.models.shift import Shift
 
 
 class CampaignRepository(Protocol):
@@ -74,4 +75,11 @@ class ProductRepository(Protocol):
 
 class SalesRepository(Protocol):
     def generate(self) -> Sales:
+        pass
+
+class ShiftRepository(Protocol):
+    def create(self, shift: Shift) -> Shift:
+        pass
+
+    def close(self, shift_id: str) -> None:
         pass
