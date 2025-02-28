@@ -81,5 +81,8 @@ class ShiftRepository(Protocol):
     def create(self, shift: Shift) -> Shift:
         pass
 
+    def read(self, shift_id: str) -> Shift:
+        pass
+
     def close(self, shift_id: str) -> None:
         pass
