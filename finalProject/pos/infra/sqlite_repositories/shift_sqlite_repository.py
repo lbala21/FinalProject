@@ -11,7 +11,7 @@ class ShiftSQLiteRepository(ShiftRepository):
 
     def create(self, shift: Shift) -> Shift:
         self.db.execute("INSERT INTO shifts (id, cashier, is_open) "
-                        "VALUE(?,?,?)",
+                        "VALUES (?,?,?)",
                         (shift.id, shift.cashier, shift.is_open))
         return shift
 
@@ -25,7 +25,7 @@ class ShiftSQLiteRepository(ShiftRepository):
 
 
     def close(self, shift_id: str) -> None:
-        self.db.execute("UPDATE FROM shifts SET id = ? "
+        self.db.execute("UPDATE shifts SET is_open = ? "
                         "WHERE id = ?",
                         (False,shift_id,))
 

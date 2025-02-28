@@ -60,7 +60,7 @@ class Database:
         
         CREATE TABLE IF NOT EXISTS shifts(
             id TEXT PRIMARY KEY,
-            name TEXT NOT NULL,
+            cashier TEXT NOT NULL,
             is_open BOOLEAN,
             FOREIGN KEY(id) REFERENCES receipts(shift_id)
         )
