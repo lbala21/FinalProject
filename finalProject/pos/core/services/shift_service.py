@@ -7,10 +7,17 @@ class ShiftService:
         self.shift_repo = shift_repo
 
     def create_shift(self, shift_id: str, cashier: str) -> Shift:
-        pass
+        shift = Shift(shift_id=shift_id, cashier=cashier)
+        return self.shift_repo.create(shift)
 
-    def read_shift(self, shift_id: str) -> Shift:
-        pass
+    def get_shift(self, shift_id: str) -> Shift:
+        shift = self.shift_repo.read(shift_id)
+        if not shift:
+            raise ValueError("Shift not found.")
+        return shift
 
     def close_shift(self, shift_id:str) -> None:
-        pass
+        shift = self.shift_repo.read(shift_id)
+        if not shift or not shift.is_open:
+            raise ValueError("Shift is not valid or is already closed.")
+        self.shift_repo.close(shift_id)

@@ -25,6 +25,7 @@ class ShiftSQLiteRepository(ShiftRepository):
 
 
     def close(self, shift_id: str) -> None:
-        self.db.execute("DELETE FROM shifts WHERE id = ?",
-                        (shift_id,))
+        self.db.execute("UPDATE FROM shifts SET id = ? "
+                        "WHERE id = ?",
+                        (False,shift_id,))
 
