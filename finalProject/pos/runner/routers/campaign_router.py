@@ -1,5 +1,5 @@
 import uuid
-from typing import List
+from typing import List, Any
 
 from fastapi import APIRouter, Depends
 from fastapi.requests import Request
@@ -92,6 +92,6 @@ def deactivate_campaign(
     service.delete_discount_campaign(campaign_id)
 
 
-@router.get("/", status_code=200, response_model=List[dict])
-def list_campaigns(service: CampaignService = Depends(create_campaign_service)) -> List[dict]:
+@router.get("", status_code=200, response_model=List[Any])
+def list_campaigns(service: CampaignService = Depends(create_campaign_service)) -> List[Any]:
     return service.list_campaigns()
