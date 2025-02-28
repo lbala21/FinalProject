@@ -3,7 +3,7 @@ from pos.core.models.repositories import (
     ProductRepository,
     ReceiptRepository,
     ReportRepository,
-    SalesRepository,
+    SalesRepository, ShiftRepository,
 )
 from pos.infra.database import Database
 from pos.infra.sqlite_repositories.campaign_sqlite_repository import (
@@ -38,3 +38,6 @@ class Sqlite:
 
     def report_repo(self) -> ReportRepository:
         return ReportSQLiteRepository(self.db)
+
+    def shift_repo(self) -> ShiftRepository:
+        return
