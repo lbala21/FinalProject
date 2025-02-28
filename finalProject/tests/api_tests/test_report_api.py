@@ -3,7 +3,9 @@ import uuid
 import httpx
 import pytest
 from fastapi.testclient import TestClient
+from pydantic import BaseModel
 
+from pos.core.models.shift import Shift
 from pos.infra.database import Database
 from pos.runner.__main__ import app  # Import FastAPI app
 
@@ -17,6 +19,7 @@ client = TestClient(app)
 def reset_db() -> None:
     db.execute("DELETE FROM receipts;")
     db.execute("DELETE FROM products;")
+    db.execute("DELETE FROM shifts;")
 
 
 def test_get_sales() -> None:
@@ -27,10 +30,21 @@ def test_get_sales() -> None:
     assert isinstance(response.json()["sales"], dict)
 
 
+class ShiftRequest(BaseModel):
+    name: str
+
+
 def __create_shift_with_sales() -> str:
     """Helper function to create a shift and add sales to it."""
-    shift_id = str(uuid.uuid4())
+    request = ShiftRequest(name="luka")
 
+    # Convert ShiftRequest to dictionary
+    shift = client.post("/shift", json=request.dict())  # Convert to dict here
+    assert shift.status_code == 201
+
+    shift_id = shift.json()["id"]  # Assuming 'id' is in the response JSON
+
+    # Add sales/receipt to the shift
     receipt_data = {"shift_id": shift_id}
     create_response = client.post("/receipts/", json=receipt_data)
     receipt_id = create_response.json()["receipt"]["id"]
@@ -41,7 +55,6 @@ def __create_shift_with_sales() -> str:
     data = {"id": product_id, "quantity": 1}
 
     client.post(f"/receipts/{receipt_id}/products", json=data)
-
     client.post(f"/receipts/{receipt_id}/quotes")
     client.post(f"/receipts/{receipt_id}/payments")
     return shift_id
