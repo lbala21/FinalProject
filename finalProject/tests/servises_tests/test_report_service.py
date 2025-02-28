@@ -3,6 +3,7 @@ import unittest
 from pos.core.services.product_service import ProductService
 from pos.core.services.receipt_service import ReceiptService
 from pos.core.services.report_service import ReportService
+from pos.core.services.shift_service import ShiftService
 from pos.infra.database import Database
 from pos.infra.sqlite_repositories.campaign_sqlite_repository import (
     CampaignSQLiteRepository,
@@ -16,13 +17,16 @@ from pos.infra.sqlite_repositories.receipt_sqlite_repository import (
 from pos.infra.sqlite_repositories.report_sqlite_repository import (
     ReportSQLiteRepository,
 )
+from pos.infra.sqlite_repositories.shift_sqlite_repository import ShiftSQLiteRepository
 
 
 class TestReportService(unittest.TestCase):
     def setUp(self) -> None:
         self.db = Database()
         self.report_repository = ReportSQLiteRepository(self.db)
-        self.report_service = ReportService(self.report_repository)
+        self.shift_repository = ShiftSQLiteRepository(self.db)
+        self.shift_service = ShiftService(self.shift_repository)
+        self.report_service = ReportService(self.report_repository, self.shift_repository)
         self.receipt_repository = ReceiptSQLiteRepository(self.db)
         self.product_repository = ProductSQLiteRepository(self.db)
         self.campaign_repository = CampaignSQLiteRepository(self.db)
@@ -37,6 +41,8 @@ class TestReportService(unittest.TestCase):
         self.db.execute("DROP TABLE IF EXISTS campaigns")
 
     def test_generate_report_with_receipts(self) -> None:
+        self.shift_service.create_shift(shift_id="1", cashier="John")
+        self.shift_service.create_shift(shift_id="2", cashier="Ann")
         self.receipt_service.create_receipt(receipt_id="1", shift_id="1")
         self.product_service.create_product(
             product_id="1", name="apple", barcode="1234567890", price=5.0
