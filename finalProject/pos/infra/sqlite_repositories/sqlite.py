@@ -19,6 +19,7 @@ from pos.infra.sqlite_repositories.report_sqlite_repository import (
     ReportSQLiteRepository,
 )
 from pos.infra.sqlite_repositories.sales_sqlite_repository import SalesSqliteRepository
+from pos.infra.sqlite_repositories.shift_sqlite_repository import ShiftSQLiteRepository
 
 
 class Sqlite:
@@ -40,4 +41,4 @@ class Sqlite:
         return ReportSQLiteRepository(self.db)
 
     def shift_repo(self) -> ShiftRepository:
-        return
+        return ShiftSQLiteRepository(self.db)
