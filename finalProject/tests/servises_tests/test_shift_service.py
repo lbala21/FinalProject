@@ -16,17 +16,14 @@ class TestShiftService(unittest.TestCase):
 
     def test_create_shift(self) -> None:
         # Test creating a new shift
-        shift = self.shift_service.create_shift(
-            shift_id= "1", cashier="Luka")
+        shift = self.shift_service.create_shift(shift_id="1", cashier="Luka")
         self.assertEqual(shift.id, "1")
         self.assertEqual(shift.cashier, "Luka")
         self.assertEqual(shift.is_open, True)
 
     def test_get_product(self) -> None:
         # Create a shift
-        self.shift_service.create_shift(
-            shift_id="1", cashier="Luka"
-        )
+        self.shift_service.create_shift(shift_id="1", cashier="Luka")
 
         # Test getting an existing shift
         shift = self.shift_service.get_shift("1")
@@ -40,9 +37,7 @@ class TestShiftService(unittest.TestCase):
 
     def test_close_shift(self) -> None:
         # Create a shift
-        self.shift_service.create_shift(
-            shift_id="1", cashier="Luka"
-        )
+        self.shift_service.create_shift(shift_id="1", cashier="Luka")
 
         # Close a shift
         self.shift_service.close_shift("1")

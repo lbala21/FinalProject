@@ -1,8 +1,8 @@
-import uuid
 import pytest
 from fastapi.testclient import TestClient
-from pos.runner.__main__ import app  # Import FastAPI app
+
 from pos.infra.database import Database
+from pos.runner.__main__ import app  # Import FastAPI app
 
 # Initialize FastAPI test client
 client = TestClient(app)
@@ -56,7 +56,7 @@ def test_create_buy_n_get_n_campaign() -> None:
         "product_id": product_id,
         "product_amount": 2,
         "gift_id": gift_id,
-        "gift_amount": 1
+        "gift_amount": 1,
     }
     response = client.post("/campaign/nbyn", json=campaign_data)
 

@@ -1,4 +1,5 @@
 import uuid
+
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.requests import Request
 from pydantic import BaseModel
@@ -8,6 +9,7 @@ from pos.core.services.shift_service import ShiftService
 from pos.runner.routers.infra import _Infra
 
 router = APIRouter()
+
 
 def create_shift_service(request: Request) -> ShiftService:
     infra: _Infra = request.app.state.infra
@@ -20,7 +22,6 @@ class ShiftRequest(BaseModel):
 
 class ShiftCloseRequest(BaseModel):
     shift_id: str
-
 
 
 @router.post("/", status_code=201, response_model=Shift)

@@ -10,22 +10,24 @@ class ShiftSQLiteRepository(ShiftRepository):
         self.db = db
 
     def create(self, shift: Shift) -> Shift:
-        self.db.execute("INSERT INTO shifts (id, cashier, is_open) "
-                        "VALUES (?,?,?)",
-                        (shift.id, shift.cashier, shift.is_open))
+        self.db.execute(
+            "INSERT INTO shifts (id, cashier, is_open) VALUES (?,?,?)",
+            (shift.id, shift.cashier, shift.is_open),
+        )
         return shift
 
     def read(self, shift_id: str) -> Optional[Shift]:
-        row = self.db.fetchone("SELECT * FROM shifts WHERE id=?",
-                              (shift_id,))
+        row = self.db.fetchone("SELECT * FROM shifts WHERE id=?", (shift_id,))
         if row is None:
             return None
 
-        return Shift(id = row[0], cashier = row[1], is_open = row[2])
-
+        return Shift(id=row[0], cashier=row[1], is_open=row[2])
 
     def close(self, shift_id: str) -> None:
-        self.db.execute("UPDATE shifts SET is_open = ? "
-                        "WHERE id = ?",
-                        (False,shift_id,))
-
+        self.db.execute(
+            "UPDATE shifts SET is_open = ? WHERE id = ?",
+            (
+                False,
+                shift_id,
+            ),
+        )

@@ -3,7 +3,9 @@ from pos.core.models.repositories import ReportRepository, ShiftRepository
 
 
 class ReportService:
-    def __init__(self, report_repository: ReportRepository, shift_repository: ShiftRepository):
+    def __init__(
+        self, report_repository: ReportRepository, shift_repository: ShiftRepository
+    ):
         self.report_repo = report_repository
         self.shift_repo = shift_repository
 

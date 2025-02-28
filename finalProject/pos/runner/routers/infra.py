@@ -5,7 +5,8 @@ from pos.core.models.repositories import (
     ProductRepository,
     ReceiptRepository,
     ReportRepository,
-    SalesRepository, ShiftRepository,
+    SalesRepository,
+    ShiftRepository,
 )
 
 

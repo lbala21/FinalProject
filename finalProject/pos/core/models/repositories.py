@@ -77,11 +77,12 @@ class SalesRepository(Protocol):
     def generate(self) -> Sales:
         pass
 
+
 class ShiftRepository(Protocol):
     def create(self, shift: Shift) -> Shift:
         pass
 
-    def read(self, shift_id: str) -> Shift:
+    def read(self, shift_id: str) -> Optional[Shift]:
         pass
 
     def close(self, shift_id: str) -> None:

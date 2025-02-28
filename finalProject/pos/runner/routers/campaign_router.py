@@ -1,16 +1,15 @@
 import uuid
-from typing import List, Any
+from typing import Any, List
 
 from fastapi import APIRouter, Depends
 from fastapi.requests import Request
 from pydantic import BaseModel
 
-from pos.core.models.campaigns import Combo, BuyNGetN, DiscountPrice, DiscountItem
+from pos.core.models.campaigns import BuyNGetN, Combo, DiscountItem, DiscountPrice
 from pos.core.services.campaign_service import CampaignService
 from pos.runner.routers.infra import _Infra
 
 router = APIRouter()
-
 
 
 def create_campaign_service(request: Request) -> CampaignService:
@@ -69,7 +68,11 @@ def create_buy_n_get_n_campaign(
 ) -> BuyNGetN:
     campaign_id = str(uuid.uuid4())
     return service.create_buy_n_get_n_campaign(
-        campaign_id, request.product_id, request.product_amount, request.gift_id, request.gift_amount
+        campaign_id,
+        request.product_id,
+        request.product_amount,
+        request.gift_id,
+        request.gift_amount,
     )
 
 
@@ -93,5 +96,7 @@ def deactivate_campaign(
 
 
 @router.get("", status_code=200, response_model=List[Any])
-def list_campaigns(service: CampaignService = Depends(create_campaign_service)) -> List[Any]:
+def list_campaigns(
+    service: CampaignService = Depends(create_campaign_service),
+) -> List[Any]:
     return service.list_campaigns()

@@ -60,9 +60,11 @@ class AddProductRequest(BaseModel):
     id: str
     quantity: int
 
+
 class EmptyResponse(BaseModel):
     class Config:
         orm_mode = True
+
 
 @router.post("/{receipt_id}/products", status_code=201, response_model=EmptyResponse)
 def add_product_to_receipt(
@@ -75,7 +77,6 @@ def add_product_to_receipt(
         return EmptyResponse()
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
-
 
 
 class PaymentResponse(BaseModel):
@@ -94,11 +95,13 @@ def calculate_payment(
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
 
+
 @router.post("/{receipt_id}/payments", status_code=201, response_model=EmptyResponse)
-def add_payment_to_receipt(receipt_id: str,service: ReceiptService = Depends(create_receipt_service)) -> EmptyResponse:
+def add_payment_to_receipt(
+    receipt_id: str, service: ReceiptService = Depends(create_receipt_service)
+) -> EmptyResponse:
     try:
         service.close_receipt(receipt_id)
         return EmptyResponse()
     except ValueError as e:
         raise HTTPException(status_code=404, detail=str(e))
-

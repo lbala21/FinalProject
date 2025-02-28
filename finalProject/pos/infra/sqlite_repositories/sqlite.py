@@ -3,7 +3,8 @@ from pos.core.models.repositories import (
     ProductRepository,
     ReceiptRepository,
     ReportRepository,
-    SalesRepository, ShiftRepository,
+    SalesRepository,
+    ShiftRepository,
 )
 from pos.infra.database import Database
 from pos.infra.sqlite_repositories.campaign_sqlite_repository import (

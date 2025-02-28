@@ -1,11 +1,7 @@
-import uuid
-
-import httpx
 import pytest
 from fastapi.testclient import TestClient
 from pydantic import BaseModel
 
-from pos.core.models.shift import Shift
 from pos.infra.database import Database
 from pos.runner.__main__ import app  # Import FastAPI app
 
@@ -42,7 +38,7 @@ def __create_shift_with_sales() -> str:
     shift = client.post("/shift", json=request.dict())  # Convert to dict here
     assert shift.status_code == 201
 
-    shift_id = shift.json()["id"]  # Assuming 'id' is in the response JSON
+    shift_id: str = shift.json()["id"]  # Assuming 'id' is in the response JSON
 
     # Add sales/receipt to the shift
     receipt_data = {"shift_id": shift_id}
@@ -77,5 +73,3 @@ def test_get_report_success() -> None:
     print(response.json())
     assert response.status_code == 200
     assert "report" in response.json()
-
-

@@ -26,7 +26,9 @@ class TestReportService(unittest.TestCase):
         self.report_repository = ReportSQLiteRepository(self.db)
         self.shift_repository = ShiftSQLiteRepository(self.db)
         self.shift_service = ShiftService(self.shift_repository)
-        self.report_service = ReportService(self.report_repository, self.shift_repository)
+        self.report_service = ReportService(
+            self.report_repository, self.shift_repository
+        )
         self.receipt_repository = ReceiptSQLiteRepository(self.db)
         self.product_repository = ProductSQLiteRepository(self.db)
         self.campaign_repository = CampaignSQLiteRepository(self.db)

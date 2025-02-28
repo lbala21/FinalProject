@@ -1,12 +1,13 @@
-import uuid
 import pytest
 from fastapi.testclient import TestClient
-from pos.runner.__main__ import app  # Import FastAPI app
+
 from pos.infra.database import Database
+from pos.runner.__main__ import app  # Import FastAPI app
 
 # Initialize FastAPI test client
 client = TestClient(app)
 db = Database()
+
 
 @pytest.fixture(autouse=True)
 def reset_db() -> None:
@@ -17,10 +18,10 @@ def reset_db() -> None:
     db.execute("DELETE FROM products;")
     db.execute("DELETE FROM shifts;")
 
+
 def test_create_shift() -> None:
     shift_data = {"cashier": "John Doe"}
     response = client.post("/shift", json=shift_data)
-
 
     assert response.status_code == 201
     assert "id" in response.json()

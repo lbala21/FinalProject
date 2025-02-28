@@ -4,8 +4,7 @@ from pos.infra.sqlite_repositories.sqlite import Sqlite
 from pos.runner.routers.campaign_router import router as campaign_router
 from pos.runner.routers.product_router import router as product_router
 from pos.runner.routers.receipt_router import router as receipt_router
-from pos.runner.routers.report_router import sales_router
-from pos.runner.routers.report_router import report_router
+from pos.runner.routers.report_router import report_router, sales_router
 from pos.runner.routers.shift_router import router as shift_router
 
 

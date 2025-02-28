@@ -16,7 +16,7 @@ class ShiftService:
             raise ValueError("Shift not found.")
         return shift
 
-    def close_shift(self, shift_id:str) -> None:
+    def close_shift(self, shift_id: str) -> None:
         shift = self.shift_repo.read(shift_id)
         if not shift or not shift.is_open:
             raise ValueError("Shift is not valid or is already closed.")
