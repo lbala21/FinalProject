@@ -36,6 +36,7 @@ class TestReportService(unittest.TestCase):
         self.product_service = ProductService(self.product_repository)
 
     def tearDown(self) -> None:
+        self.db.execute("DROP TABLE IF EXISTS shifts")
         self.db.execute("DROP TABLE IF EXISTS receipts")
         self.db.execute("DROP TABLE IF EXISTS products")
         self.db.execute("DROP TABLE IF EXISTS campaigns")
