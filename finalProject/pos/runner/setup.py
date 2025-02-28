@@ -4,7 +4,8 @@ from pos.infra.sqlite_repositories.sqlite import Sqlite
 from pos.runner.routers.campaign_router import router as campaign_router
 from pos.runner.routers.product_router import router as product_router
 from pos.runner.routers.receipt_router import router as receipt_router
-from pos.runner.routers.report_router import router as report_router
+from pos.runner.routers.report_router import sales_router
+from pos.runner.routers.report_router import report_router
 
 
 def setup() -> FastAPI:
@@ -14,7 +15,8 @@ def setup() -> FastAPI:
 
     api.include_router(product_router, prefix="/products", tags=["Products"])
     api.include_router(receipt_router, prefix="/receipts", tags=["Receipts"])
-    api.include_router(campaign_router, prefix="/receipts", tags=["Campaign"])
-    api.include_router(report_router, prefix="/receipts", tags=["Report"])
+    api.include_router(campaign_router, prefix="/campaign", tags=["Campaign"])
+    api.include_router(sales_router, prefix="/sales", tags=["Sales"])
+    api.include_router(report_router, prefix="/x-reports", tags=["Report"])
 
     return api
