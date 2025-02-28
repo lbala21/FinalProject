@@ -59,7 +59,7 @@ class ReceiptService:
         receipt = self.receipt_repo.read(receipt_id)
         if not receipt:
             raise ValueError("Receipt not found.")
-        return receipt.total_price
+        return receipt.discount_price
 
     def delete_receipt(self, receipt_id: str) -> None:
         receipt = self.receipt_repo.read(receipt_id)
