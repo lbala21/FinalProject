@@ -5,7 +5,7 @@ from pos.core.models.repositories import (
     ProductRepository,
     ReceiptRepository,
     ReportRepository,
-    SalesRepository,
+    SalesRepository, ShiftRepository,
 )
 
 
@@ -23,4 +23,7 @@ class _Infra(Protocol):
         pass
 
     def report_repo(self) -> ReportRepository:
+        pass
+
+    def shift_repo(self) -> ShiftRepository:
         pass

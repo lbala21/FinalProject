@@ -20,7 +20,8 @@ def create_sales_service(request: Request) -> SalesService:
 def create_report_service(request: Request) -> ReportService:
     infra: _Infra = request.app.state.infra
     return ReportService(
-        infra.report_repo()
+        infra.report_repo(),
+        infra.shift_repo()
     )
 
 
