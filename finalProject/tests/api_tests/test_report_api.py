@@ -31,12 +31,12 @@ def test_get_sales() -> None:
 
 
 class ShiftRequest(BaseModel):
-    name: str
+    cashier: str
 
 
 def __create_shift_with_sales() -> str:
     """Helper function to create a shift and add sales to it."""
-    request = ShiftRequest(name="luka")
+    request = ShiftRequest(cashier="luka")
 
     # Convert ShiftRequest to dictionary
     shift = client.post("/shift", json=request.dict())  # Convert to dict here
