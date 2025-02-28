@@ -15,7 +15,7 @@ def create_shift_service(request: Request) -> ShiftService:
 
 
 class ShiftRequest(BaseModel):
-    name: str
+    cashier: str
 
 
 class ShiftCloseRequest(BaseModel):
@@ -29,7 +29,7 @@ def create_shift(
     service: ShiftService = Depends(create_shift_service),
 ) -> Shift:
     shift_id = str(uuid.uuid4())
-    shift = service.create_shift(shift_id, request.name)
+    shift = service.create_shift(shift_id, request.cashier)
     return Shift(id=shift.id, cashier=shift.cashier)
 
 
@@ -49,4 +49,4 @@ def read_shift(
     shift = service.get_shift(shift_id)
     if not shift:
         raise HTTPException(status_code=404, detail="Shift not found")
-    return Shift(id=shift.shift_id, cashier=shift.cashier)
+    return Shift(id=shift.id, cashier=shift.cashier)
