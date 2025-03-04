@@ -17,7 +17,7 @@ def setup() -> FastAPI:
     api.include_router(receipt_router, prefix="/receipts", tags=["Receipts"])
     api.include_router(campaign_router, prefix="/campaign", tags=["Campaign"])
     api.include_router(sales_router, prefix="/sales", tags=["Sales"])
-    api.include_router(report_router, prefix="/x-reports", tags=["Report"])
+    api.include_router(report_router, prefix="/reports", tags=["Report"])
     api.include_router(shift_router, prefix="/shift", tags=["Shift"])
 
     return api
