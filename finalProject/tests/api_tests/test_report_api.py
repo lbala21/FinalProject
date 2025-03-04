@@ -66,10 +66,20 @@ def test_get_sales_with_data() -> None:
     assert response.json()["sales"]["revenue"] == 200
 
 
-def test_get_report_success() -> None:
+def test_get_x_report_success() -> None:
     shift_id = __create_shift_with_sales()
 
-    response = client.get("/x-reports", params={"shift_id": shift_id})
-    print(response.json())
+    response = client.get("/reports/x-report", params={"shift_id": shift_id})
     assert response.status_code == 200
     assert "report" in response.json()
+
+def test_get_z_report_success() -> None:
+    shift_id = __create_shift_with_sales()
+
+    response = client.get("/reports/z-report", params={"shift_id": shift_id})
+    assert response.status_code == 200
+    assert "report" in response.json()
+
+    response = client.get(f"/shift/{shift_id}")
+    assert response.status_code == 200
+    assert response.json()["is_open"] == False

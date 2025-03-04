@@ -37,6 +37,12 @@ def test_close_shift() -> None:
     close_response = client.post("/shift/close", json={"shift_id": shift_id})
     assert close_response.status_code == 204
 
+    get_response = client.get(f"/shift/{shift_id}")
+    assert get_response.status_code == 200
+    assert get_response.json()["id"] == shift_id
+    assert get_response.json()["cashier"] == "John Doe"
+    assert get_response.json()["is_open"] == False
+
 
 def test_read_shift() -> None:
     shift_data = {"cashier": "John Doe"}

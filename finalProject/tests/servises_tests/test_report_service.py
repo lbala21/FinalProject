@@ -86,6 +86,9 @@ class TestReportService(unittest.TestCase):
         self.assertEqual(report.revenue, 17)
         self.assertEqual(report.products, {"1": 2, "2": 1})
 
+        shift = self.shift_service.get_shift(shift_id="1")
+        self.assertEqual(shift.is_open, True)
+
         report = self.report_service.get_z_report(shift_id="2")
         self.assertEqual(report.n_receipts, 1)
         self.assertEqual(report.revenue, 12)
