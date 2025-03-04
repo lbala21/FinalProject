@@ -41,7 +41,7 @@ def test_close_shift() -> None:
     assert get_response.status_code == 200
     assert get_response.json()["id"] == shift_id
     assert get_response.json()["cashier"] == "John Doe"
-    assert get_response.json()["is_open"] == False
+    assert not get_response.json()["is_open"]
 
 
 def test_read_shift() -> None:

@@ -73,6 +73,7 @@ def test_get_x_report_success() -> None:
     assert response.status_code == 200
     assert "report" in response.json()
 
+
 def test_get_z_report_success() -> None:
     shift_id = __create_shift_with_sales()
 
@@ -82,4 +83,4 @@ def test_get_z_report_success() -> None:
 
     response = client.get(f"/shift/{shift_id}")
     assert response.status_code == 200
-    assert response.json()["is_open"] == False
+    assert not response.json()["is_open"]
