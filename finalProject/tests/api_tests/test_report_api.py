@@ -63,7 +63,7 @@ def test_get_sales_with_data() -> None:
 
     assert response.status_code == 200
 
-    assert response.json()["sales"]["revenue"] == 200
+    assert response.json()["sales"]["revenue_gel"] == 200
 
 
 def test_get_x_report_success() -> None:
