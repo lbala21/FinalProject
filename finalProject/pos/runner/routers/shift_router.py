@@ -50,4 +50,4 @@ def read_shift(
     shift = service.get_shift(shift_id)
     if not shift:
         raise HTTPException(status_code=404, detail="Shift not found")
-    return Shift(id=shift.id, cashier=shift.cashier)
+    return shift

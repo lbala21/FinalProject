@@ -30,13 +30,13 @@ class ReportResponse(BaseModel):
     report: Report
 
 
-@sales_router.get("sales", status_code=200, response_model=SalesResponse)
+@sales_router.get("", status_code=200, response_model=SalesResponse)
 def get_sales(service: SalesService = Depends(create_sales_service)) -> SalesResponse:
     sales: SalesResponse = SalesResponse(sales=service.get_sales())
     return sales
 
 
-@report_router.get("x-report", status_code=200, response_model=ReportResponse)
+@report_router.get("/x-report", status_code=200, response_model=ReportResponse)
 def get_x_report(
     shift_id: str = Query(..., description="The ID of the shift"),
     service: ReportService = Depends(create_report_service),
@@ -48,7 +48,7 @@ def get_x_report(
         raise HTTPException(status_code=404, detail=str(e))
 
 
-@report_router.get("z-report", status_code=200, response_model=ReportResponse)
+@report_router.get("/z-report", status_code=200, response_model=ReportResponse)
 def get_z_report(
     shift_id: str = Query(..., description="The ID of the shift"),
     service: ReportService = Depends(create_report_service),
