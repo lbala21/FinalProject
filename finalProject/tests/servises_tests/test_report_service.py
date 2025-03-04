@@ -81,12 +81,15 @@ class TestReportService(unittest.TestCase):
             receipt_id="4", product_id="45", quantity=1
         )
 
-        report = self.report_service.get_report(shift_id="1")
+        report = self.report_service.get_x_report(shift_id="1")
         self.assertEqual(report.n_receipts, 2)
         self.assertEqual(report.revenue, 17)
         self.assertEqual(report.products, {"1": 2, "2": 1})
 
-        report = self.report_service.get_report(shift_id="2")
+        report = self.report_service.get_z_report(shift_id="2")
         self.assertEqual(report.n_receipts, 1)
         self.assertEqual(report.revenue, 12)
         self.assertEqual(report.products, {"1": 1, "2": 1})
+
+        shift = self.shift_service.get_shift(shift_id="2")
+        self.assertEqual(shift.is_open, False)
