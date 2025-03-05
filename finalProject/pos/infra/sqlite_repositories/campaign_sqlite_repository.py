@@ -1,4 +1,3 @@
-import json
 from typing import Any, List
 
 from pos.core.models.campaigns import BuyNGetN, Combo, DiscountItem, DiscountPrice
@@ -130,8 +129,9 @@ class CampaignSQLiteRepository(CampaignRepository):
         rows = self.db.fetchall("SELECT products_id, discount FROM combo")
         if rows:
             for row in rows:
-                combo_products = json.loads(row[0])
-                if set(combo_products).issubset(product_ids):
+                combo_products = row[0].split(",")
+                print(combo_products)
+                if set(combo_products).issubset(set(product_ids)):
                     receipt.discount_price -= row[1]
 
     def __check_buy_n_get_n(self, receipt: Receipt) -> None:
@@ -144,7 +144,7 @@ class CampaignSQLiteRepository(CampaignRepository):
             )
             if rows:
                 for row in rows:
-                    if quantity > row[0]:
+                    if quantity >= row[0]:
                         receipt.gift_products[row[1]] = row[2]
 
     def __check_discount_item(self, receipt: Receipt) -> None:

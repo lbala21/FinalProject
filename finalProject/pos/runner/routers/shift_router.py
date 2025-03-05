@@ -47,7 +47,8 @@ def read_shift(
     shift_id: str,
     service: ShiftService = Depends(create_shift_service),
 ) -> Shift:
-    shift = service.get_shift(shift_id)
-    if not shift:
+    try:
+        shift = service.get_shift(shift_id)
+        return shift
+    except ValueError:
         raise HTTPException(status_code=404, detail="Shift not found")
-    return shift

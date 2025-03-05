@@ -84,6 +84,9 @@ class TestReportRepository(unittest.TestCase):
         receipt.products["2"] = 3
         receipt.total_price = 31
 
+        combo = Combo(id="1", products=["A1", "2"], discount=2)
+        self.repo.create_combo(combo)
+
         discount_price_campaign = DiscountPrice(id="1", price=10, discount=2)
         self.repo.create_discount_price(discount_price_campaign)
 
@@ -92,4 +95,4 @@ class TestReportRepository(unittest.TestCase):
 
         self.repo.campaign_check(receipt)
 
-        self.assertEqual(receipt.discount_price, 23)
+        self.assertEqual(receipt.discount_price, 21)
